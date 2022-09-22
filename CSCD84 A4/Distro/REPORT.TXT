@@ -1,0 +1,175 @@
+CSC D84 - Artificial Intelligence
+
+Assignment 4 - Neural Networks for OCR
+
+________________________________________________
+
+Student Name 1 (last, first): Zhang, Luke
+
+Student Name 2 (last, first): Tolentino, Alexia
+
+Student number 1: 1004136231
+
+Student number 2: 1006293967
+
+UTORid 1: zhan4908
+
+UTORid 2: tolent55
+
+READ THIS AND SIGN YOUR NAME AT THE END:
+
+ I certify that I have read the UTSC code on academic
+honesty and plaguarism. All work submitted as part
+of this assignment is my own.
+
+	Signed: _Luke Zhang__	_Alexia Tolentino__
+
+
+(-5 marks for failing to provide the identifying
+ information requested above)
+________________________________________________
+
+Answer the following questions. Be concise and clear
+but explain carefully when needed.
+
+1 .- (1 marks) Train a 1-layer network using the Logistic activation
+               function. 
+
+					Copy/paste the reported classification rates for:
+			
+					Training data (last training round): 0.848928
+
+					Testing data: 0.852984
+
+2 .- (1 marks) Repeat the process using the hyperbolic tangent activation
+	       function.
+
+		   		Training data (last training round): 0.896936
+
+				Testing data: 0.901388
+
+
+3 .- (1 marks) Which type of activation function yielded the best classification
+	       results? which one learned faster?
+
+					Hyperbolic tangent yielded a better classification result.
+					For 50 rounds of no improvement, logistic activation took 385000 iterations.
+					For 50 rounds of no improvement, tanh activation took 340000 iterations.
+					Hyperblolic tangent learned faster.
+			
+
+
+4 .- (1 marks) Train a 2-layer network with hyperbolic-tangent activation, using
+	       150 hidden units. Report the classification rates on training and
+	       testing data just as for 1) and 2).  
+		   Training data (last training round): 0.930982
+
+
+			Testing data: 0.933479
+		   
+	       
+5 .- (1 marks) Same as 4), except use 10 hidden units instead.
+		Training data (last training round): 0.916728
+
+		Testing data: 0.916811
+
+6 .- (1 marks) Same as 5), except use 3 hidden units instead.
+		Training data (last training round): 0.597862
+
+		Testing data: 0.569664
+
+7 .- (3 marks) Comment on the experiments in 4, 5, and 6, and give your conclusion
+	       regarding the effect of the number of hidden units on classification
+	       accuracy. 
+
+		   More units yields more accurate classifications.
+		   There was not that much of a difference between 10 and 150 units.
+		   There was a drastic difference between 3 and 10 units.
+
+	       What is the network with 3 hidden telling you about this classification
+	       problem?
+		   It seems as if the network with 3 units is not capable at encapsulating
+		   enough information for 10 digits; when you have the same number of hidden
+		   units as the digits then we get close to optimal accuracy. This could be 
+		   because the 3 units must combine information for multiple digits into one
+		   and pass that onto the output which make it harder to differentiate at the
+		   end of the classification process.
+
+8 .- (3 marks) Train the best performing network you can. Use any activation function
+	       you wish, and set the number of hidden units so as to achieve the best
+	       performance.
+		   Using 25 units with the hyperbolic-tangent activation achieves close results 
+		   to 150 units without taking up half as much time.
+
+	       Number of hidden units used: 25
+
+	       Classification rate on testing data: 0.924437
+
+9 .- (3 marks) Describe how you would build a network to play the cat
+	        and mouse game (move the mouse to help it survive).
+		We would need to have a configuration such that we can tell which steps are
+		optimal to get the mouse to win the game. These are needed for detecting 
+		error between the weights.
+
+		- Describe what the input is in terms of a vector of
+		  values
+		  Input in terms of vector values would be location of cheese, location of cats,
+		  location of mouse, and whether or not is in invincible mode from just eating. 
+		- Describe what the output layer looks like (how many
+		  neurons and what they encode)
+		  Output layer would be the optimal path/optimal next step for the mouse to take.
+		- Describe the error function
+		  The error function would be associated with whether or not they make the 
+		  "correct" next step or a "good" next step. These all must be classified before 
+		  hand.
+		- How many layers should you use?
+		  The first layer can analyze small portions of the maze as if it is a picture.
+		  Then the next layer can cover more space, and more going forward.
+		  Til the very end it is able to analyze whether or not the mouse is in a good
+		  position and what the next step should be. This could be done in around 3-4 
+		  layers. 
+		The weights generated after training will then be used to help the mouse find it's 
+		way by calling upon them frequently as the environment changes to determine actions.
+_____________________________________________________
+
+Mark with an 'x' where appropriate. If something is only
+working partially, briefly describe what works, what
+doesn't work, or what problems exist.
+	
+        	Complete/Working	Partial		Not done
+
+Logistic		    x				
+ activation
+ 
+Tanh				x
+ activation
+
+1L Feed-forward  	x
+
+1L Backprop			x
+
+1L Classify			x
+
+2L Feed-forward     x
+
+2L Backprop         x
+
+2L Classify         x
+_____________________________________________________
+
+Marking:
+
+(10) one-layer, logistic network trains and classifies
+
+(5)  one-layer, tanh network trains and classifies
+
+(15) two-layer, tanh network trains and classifies
+
+(5) two-layer, logistic network trains and classifies
+
+(5 marks) Can train 2-layer networks with either activation function
+	  and any number of hidden units
+
+(15 marks) Answers in this report
+
+Total for A4:       / out of 50

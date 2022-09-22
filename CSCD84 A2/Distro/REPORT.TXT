@@ -1,0 +1,158 @@
+CSC D84 - Artificial Intelligence
+
+Assignment 2 - MiniMax and Game Trees 
+
+________________________________________________
+
+Student Name 1 (last, first): tolentino, alexia
+
+Student number 1: 1006293967
+
+UTORid 1: tolent55
+
+READ THIS AND SIGN YOUR NAME AT THE END:
+
+ I certify that I have read the UTSC code on academic
+honesty and plaguarism. All work submitted as part
+of this assignment is my own.
+
+	Signed: _Alexia Tolentino_
+
+
+(-5 marks for failing to provide the identifying
+ information requested above)
+________________________________________________
+
+Answer the following questions. Be concise and clear
+but explain carefully when needed.
+
+1 .- (5 marks) Explain the design of your utility function.
+     Describe all the factors that influence its value, and
+     how their influence was evaluated and integrated into
+     a single, meaningful value. Convince us that your utility
+     makes sense!
+	
+     Arguments for utility function:
+	Things to be minimized in the function
+	1) total_chm: This is the total distance between the mouse and all cheeses
+	2) min_cheese: The minimum distance between a cheese and the mouse
+	3) min_cheese_blocked: if there is a direct block between the cheese and the mouse 
+		(goal is to favor unblocked cheese rather than blocked)
+
+	Things to be maximized in the function
+	1) total_ctm: The total distance between the mouse and all cats
+	2) min_cat: The minimum distance between a cat and the mouse (this is most important bc we want the mouse to focus on this as a threat)
+	3) min_cat_blocked: if there is a direct block between a cat and the mouse
+		(goal is to use this to allow the mouse to take advantage of the blocking)
+
+	Dead end detection:
+	open_edge_count: the number of open edges in any given position
+		(positions with 1 open edge should be considered a dead end and should be avoided unless there is a cheese there)
+     
+     For the elements that were meant to be maximized, we added these values alongside assigned weights. For the elements 
+     that were meant to be minimized we subtracted these values alongside assigned weights. For dead end detection, I subtract x dead ends from
+     the total utility with a weight as well (more dead ends, more subtraction thus indicating a worse move). 
+
+
+2 .- (2 marks) Ignoring computation time, what is the effect of
+     search depth (number of turns) on the chances of the mouse
+     winning the game. 
+     As search depth increases we are able to see further into the progression of the game; thus the chances of the mouse
+     winning the game is higher since it would be able to "plan" more for the upcoming events.
+
+3 .- (2 marks) What situations will cause your mouse to lose?
+     can these be fixed either with the utility function, or
+     by changing the search depth? if so, how?
+     My mouse loses when at some point during the chase there is a cat blocking the cheese; even if there is some sort of alternate pathway around
+     the cat, since my mouse prioritizes the cheese of closest distance, it may start moving in that direction despite how close the cat is. This could
+     could be fixed with my utility function; if I somehow weight the cats proximity to be a heavier influence than the cheeses distance then the mouse
+     should be able to dodge the cat more often. However, there would be a trade off because it would mean my mouse often takes routes that are longer
+     since it cares about avoiding the cat more so than actually getting the cheese. 
+     I guess there is a bit of a tradeoff there and I would need to spend more time really weighing out what would be the best of both worlds. So far, 
+     my current utility weighs them as the same amount of urgency; thus I fall into this issue more often than I'd like to admit.
+
+     (*)Another issue would be that the mouse would go back and forth when it considers itself not to be "in danger" from a cat. If a cat is farther away it 
+     tends to rate the moves around it to be of close optimality. So in one step it may choose the most optimal to be with utility 20 but right after,
+     it moves back to the old spot because it also had a utility of 20. and this cycles until a cat becomes closer and more of a threat then the mouse would
+     run away and find the cheese. I think this would be helped if depth was increased but my design in my utility function could also be improved as
+     it might be able to create more unique weights given similar scenarios to get the mouse moving to the cheese faster.
+
+4 .- (2 marks) Compare cats with smartness=.8 against cats with
+     smartness=1 - which are harder for your mouse to beat?
+     why do you think that is?
+     My mouse has an easier time beating cats with smartness=1. The reason for this is related to (*) in question 3. Since my utility function is heavily
+     distance based, my mouse finds more urgency in when a cat is nearby. Therefore it is pushed to move quicker and more decisively when the cat is smarter
+     since it is threatened more often. Therefore it often finds the path to the cheese a lot quicker than when the cat has a lower smartness.
+
+5 .- (2 marks) Can the mouse be made unbeatable by having an
+     optimal utility function?
+     Almost! The reason why I say almost is that there is always the possibility of the unlucky circumstance where the cat is directly blocking the cheese in a dead end
+     and somehow the cat is smart enough to keep that position. Otherwise if there was the most optimal utility function, it would be able to calculate where to move 
+     and how that effects the cats moves whilist reaching every cheese. 
+     However; it is important to keep in mind that with this type of game solving, the depth also plays a part. So even if we have the most optimal utility function, it 
+     will be limited if we have a limited depth or depth that doesn't reach all/most of the graph. 
+     So given the best depth with an optimal utility function would make it almost unbeatable. 
+     
+
+6 .- (2 bonus marks) Could a human playing the game in place
+      of the mouse do better than your code? (yes, no, and
+      a reasonable explanation of why)
+     Yes, a human would do a better job than my mouse because they brains are much more complex than my utility function.
+     Humans are able to look at the whole maze and evaluate where to not go right away whilst my function is based off of weights that are not necessarily 
+     optimal. I even find myself looking at my mouses move and thinking why didn't it just go "here" instead. My design for the function was an attempt at 
+     mimicking what the human mind would do if they were acting as the mouse: detect dead ends, see how far the cat is and what choices we can make based off
+     of that, see how far the cheese is and try that as well. A human is more likely to adapt properly given a specific circumstance.
+
+     However, a better code would outplay a human for sure. As humans we don't look at a maze and instantly see the path to the destination every time, however
+     with a code there is that possibility. Especially if we have strong computing power and our depth could always reach the end of the game. But clearly this
+     isn't the case with my own code. 
+
+_____________________________________________________
+
+Mark with an 'x' where appropriate. If something is only
+working partially, briefly describe what works, what
+doesn't work, or what problems exist.
+	
+	Complete/Working	Partial		Not done
+
+Utility                           x
+ function
+
+MiniMax       x
+
+Alpha/Beta    x
+ pruning 
+
+Reasons for the utility functions partial mark:
+1) The mouse only is encouraged to move when the cat is closer and more of a threat (as stated in (*) in question 3)
+2) Sometimes the mouse does not go around the cat if it is blocking the cheese (issue with calculations and weights)
+_____________________________________________________
+
+Marking:
+
+(10 marks) Implemented a non-trivial, clever, and
+           effective utility function. It allows the
+           mouse to win the game often. 
+
+(10 marks) Correctly implementing MiniMax. The algorithm
+           should produce the expected behaviour. The
+           mouse should take a reasonable path to the
+           cheese and avoid cats. The cats will try to
+           catch the mouse. Mouse is not easy to catch.
+
+(10 marks) Implemented alpha-beta pruning. The algorithm
+           significantly reduces the amount of search
+           while producing identical results as those
+           from standard MiniMax 
+
+(15 marks) Competitive (TA assigned) based on how smart
+           your mouse is (this is related to your
+           utility function above!)
+
+(15 marks) Answers in this report file
+
+(2 bonus)  Bonus!
+
+Total for A2:       / out of 60
+
+
